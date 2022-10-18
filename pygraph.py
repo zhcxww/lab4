@@ -70,7 +70,6 @@ class Graph(object):
             raise ValueError("Invalid")
 
     def outdegree(self, node: Node) -> int:
-
         """Compute outdegree for a node"""
         if self.has_node(node):
             return len(self.G[node])
