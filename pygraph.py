@@ -1,57 +1,84 @@
 from typing import Tuple, Union, Iterable
+
 Node = Union[str, int]
 Edge = Tuple[Node, Node]
 
 
-
 class Graph(object):
     """Graph data structure, undirected by default."""
-    def __init__(self, edges: Iterable[Edge] = [], directed: bool = False):
-        raise NotImplementedError()
 
+    def __init__(self, edges: Iterable[Edge] = [], directed: bool = False):
+        self.G = {}
+        self.directed = directed
+        for e in edges:
+            self.add_edge(e)
 
     def has_node(self, node: Node):
-            """Whether a node is in graph"""
-            raise NotImplementedError()
+        """Whether a node is in graph"""
+        return node in self.G
+
     def has_edge(self, edge: Edge):
+        """Whether an edge is in graph"""
+        return edge[1] in self.G.get(edge[0], [])
 
-
-
-     """Whether an edge is in graph"""
-     raise NotImplementedError()
     def add_node(self, node: Node):
-       """Add a node"""
-       raise NotImplementedError()
-
+        """Add a node"""
+        if node not in self.G:
+            self.G[node] = []
 
     def add_edge(self, edge: Edge):
 
+        """Add an edge (node1, node2). For directed graph, node1 -> node2"""
+        self.add_node(edge[0])
+        self.add_node(edge[1])
+        if not self.has_edge(edge):
+            self.G[edge[0]].append(edge[1])
+            if not self.directed:
+                self.G[edge[1]].append(edge[0])
 
-         """Add an edge (node1, node2). For directed graph, node1 -> node2"""
-         raise NotImplementedError()
     def remove_node(self, node: Node):
-     """Remove all references to node"""
+        """Remove all references to node"""
+        if self.has_node(node):
+            del self.G[node]
+            for n in self.G:
+                if node in self.G[n]:
+                    self.G[n].remove(node)
+        else:
+            raise ValueError("Invalid")
 
-
-     raise NotImplementedError()
     def remove_edge(self, edge: Edge):
 
+        """Remove an edge from graph"""
+        if self.has_edge(edge):
+            self.G[edge[0]].remove(edge[1])
+            if not self.directed:
+                self.G[edge[1]].remove(edge[0])
+        else:
+            raise ValueError("Invalid")
 
-           """Remove an edge from graph"""
-           raise NotImplementedError()
     def indegree(self, node: Node) -> int:
-      """Compute indegree for a node"""
-      raise NotImplementedError()
+        """Compute indegree for a node"""
+        if self.has_node(node):
+            if not self.directed:
+                return self.outdegree(node)
+            indegree = 0
+            for n in self.G:
+                if node in self.G[n]:
+                    indegree += 1
+            return indegree
+        else:
+            raise ValueError("Invalid")
+
     def outdegree(self, node: Node) -> int:
 
-
         """Compute outdegree for a node"""
-        raise NotImplementedError()
-        
+        if self.has_node(node):
+            return len(self.G[node])
+        else:
+            raise ValueError("Invalid")
+
     def __str__(self):
-         raise NotImplementedError()
+        return f"{self.__class__.__name__}:{self.G}"
+
     def __repr__(self):
-
-
-
-          raise NotImplementedError()
+        return f"{self.__class__.__name__}:{self.G}"
