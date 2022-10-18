@@ -57,7 +57,7 @@ class Graph(object):
             raise ValueError("Invalid")
 
     def indegree(self, node: Node) -> int:
-        """Compute indegree for a node"""
+        """Compute indegree for a  node"""
         if self.has_node(node):
             if not self.directed:
                 return self.outdegree(node)
