@@ -4,15 +4,16 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest # 构建运行环境
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
     steps:
-    - name: Checkout  # 获取源码，使用actions/checkout@v2
-      uses: actions/checkout@v3
-
-    - name: Setup Python
-    - uses: actions/setup-python@v3
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
       with:
-        python-version: '3.10' 
+        python-version: ${{ matrix.python-version }}
 
         
     - name: setup poetry
