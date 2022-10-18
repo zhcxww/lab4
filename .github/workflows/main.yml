@@ -1,8 +1,6 @@
 name: lab4
 
-on: # 触发条件，master分支push代码后触发workflow
-  push:
-    branches: [ master ]
+on: [push]
 
 jobs:
   build:
