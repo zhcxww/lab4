@@ -25,18 +25,18 @@ jobs:
         poetry install
     - name: install pre-commit
       run: |
-        pre-commit install
-        pre-commit run --all-files
+        poetry run pre-commit install
+        poetry run pre-commit run --all-files
     - name: black
       uses: psf/black@stable
 
     - name: pytest
       run: |
-        pytest -r P --cov=pygraph 
+        poetry run pytest -r P --cov=pygraph 
     
     - name: step5_pdoc
       run: |
-        pdoc --html pygraph    
+        poetry run pdoc --html pygraph    
     - name: gh-gages
       uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
