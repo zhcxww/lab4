@@ -1,0 +1,48 @@
+name: lab4
+
+on: # 触发条件，master分支push代码后触发workflow
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 构建运行环境
+    steps:
+    - name: Checkout  # 获取源码，使用actions/checkout@v2
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.10
+        
+    - name: setup poetry
+      run:
+        curl -sSL https://install.python-poetry.org | python3 -
+        
+    - name: poetry install
+      run:
+        poetry install
+    - name: install pre-commit
+      run: |
+        pre-commit install
+        pre-commit run --all-files
+    - name: black
+      uses: psf/black@stable
+
+    - name: pytest
+      run: |
+        pytest -r P --cov=pygraph 
+    
+    - name: step5_pdoc
+      run: |
+        pdoc --html pygraph    
+    - name: gh-gages
+      uses: JamesIves/github-pages-deploy-action@v4.3.3
+      with:
+        branch: gh-pages 
+        folder: html 
+
+        
+    
+
