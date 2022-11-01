@@ -1,0 +1,19 @@
+name: lab5
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+      - name : upload
+        run: |
+          poetry twine upload --repository testpypi dist/*
+        env:
+          TWINE_USERNAME: ${{secrets.username}}
+          TWINE_PASSWORD: ${{secrets.upassword}}
