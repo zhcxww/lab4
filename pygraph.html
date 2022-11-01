@@ -27,6 +27,7 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">from typing import Tuple, Union, Iterable
+import networkx as nx
 
 Node = Union[str, int]
 Edge = Tuple[Node, Node]
@@ -103,6 +104,19 @@ class Graph(object):
             return len(self.G[node])
         else:
             raise ValueError(&#34;Invalid&#34;)
+
+    def get_shortest_path(self, node1: Node, node2: Node):
+        e = []
+        for i in self.G:
+            for j in self.G[i]:
+                e.append((i, j))
+        if self.directed:
+            G = nx.DiGraph()
+        else:
+            G = nx.Graph()
+
+        G.add_edges_from(e)
+        return nx.shortest_path(G, node1, node2)
 
     def __str__(self):
         return f&#34;{self.__class__.__name__}:{self.G}&#34;
@@ -202,6 +216,19 @@ class Graph(object):
         else:
             raise ValueError(&#34;Invalid&#34;)
 
+    def get_shortest_path(self, node1: Node, node2: Node):
+        e = []
+        for i in self.G:
+            for j in self.G[i]:
+                e.append((i, j))
+        if self.directed:
+            G = nx.DiGraph()
+        else:
+            G = nx.Graph()
+
+        G.add_edges_from(e)
+        return nx.shortest_path(G, node1, node2)
+
     def __str__(self):
         return f&#34;{self.__class__.__name__}:{self.G}&#34;
 
@@ -243,6 +270,29 @@ class Graph(object):
     &#34;&#34;&#34;Add a node&#34;&#34;&#34;
     if node not in self.G:
         self.G[node] = []</code></pre>
+</details>
+</dd>
+<dt id="pygraph.Graph.get_shortest_path"><code class="name flex">
+<span>def <span class="ident">get_shortest_path</span></span>(<span>self, node1: Union[str, int], node2: Union[str, int])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_shortest_path(self, node1: Node, node2: Node):
+    e = []
+    for i in self.G:
+        for j in self.G[i]:
+            e.append((i, j))
+    if self.directed:
+        G = nx.DiGraph()
+    else:
+        G = nx.Graph()
+
+    G.add_edges_from(e)
+    return nx.shortest_path(G, node1, node2)</code></pre>
 </details>
 </dd>
 <dt id="pygraph.Graph.has_edge"><code class="name flex">
@@ -372,6 +422,7 @@ node</p></div>
 <ul class="two-column">
 <li><code><a title="pygraph.Graph.add_edge" href="#pygraph.Graph.add_edge">add_edge</a></code></li>
 <li><code><a title="pygraph.Graph.add_node" href="#pygraph.Graph.add_node">add_node</a></code></li>
+<li><code><a title="pygraph.Graph.get_shortest_path" href="#pygraph.Graph.get_shortest_path">get_shortest_path</a></code></li>
 <li><code><a title="pygraph.Graph.has_edge" href="#pygraph.Graph.has_edge">has_edge</a></code></li>
 <li><code><a title="pygraph.Graph.has_node" href="#pygraph.Graph.has_node">has_node</a></code></li>
 <li><code><a title="pygraph.Graph.indegree" href="#pygraph.Graph.indegree">indegree</a></code></li>
