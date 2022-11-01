@@ -3,6 +3,7 @@ import pytest
 from pprint import pprint
 import os
 import sys
+import networkx
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
 from pygraph import Graph

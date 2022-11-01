@@ -1,4 +1,5 @@
 from typing import Tuple, Union, Iterable
+import networkx as nx
 
 Node = Union[str, int]
 Edge = Tuple[Node, Node]
@@ -75,6 +76,19 @@ class Graph(object):
             return len(self.G[node])
         else:
             raise ValueError("Invalid")
+
+    def get_shortest_path(self, node1: Node, node2: Node):
+        e = []
+        for i in self.G:
+            for j in self.G[i]:
+                e.append((i, j))
+        if self.directed:
+            G = nx.DiGraph()
+        else:
+            G = nx.Graph()
+
+        G.add_edges_from(e)
+        return nx.shortest_path(G, node1, node2)
 
     def __str__(self):
         return f"{self.__class__.__name__}:{self.G}"
