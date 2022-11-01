@@ -33,4 +33,4 @@ jobs:
           poetry run twine upload --repository testpypi dist/*
         env:
           TWINE_USERNAME: ${{secrets.username}}
-          TWINE_PASSWORD: ${{secrets.upassword}}
+          TWINE_PASSWORD: ${{secrets.password}}
