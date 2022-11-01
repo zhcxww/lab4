@@ -17,6 +17,6 @@ pytest-cov = "^3.0.0"
 black = "*"
 pre-commit = "*"
 twine = "*"
-pdoc3 = "0.10.0"
+pdoc3 = "*"
 
 
